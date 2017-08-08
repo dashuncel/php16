@@ -1,0 +1,11 @@
+{
+    "name": "netology/php22",
+    "description": "home works",
+    "authors": [
+        {
+            "name": "Byankina Darya",
+            "email": "korovkinada@ya.ru"
+        }
+    ],
+    "require": {}
+}
