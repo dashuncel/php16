@@ -13,7 +13,9 @@
         </label>
         <input type="submit" name="send" value="Найти">
     </form>
-    <div id="map"></div>
+    <section>
+        <div id="map"></div>
+    </section>
     <script>
         'use strict';
         const submit = document.querySelector('input[type=submit]');
@@ -27,8 +29,12 @@
         });
 
         xhr.addEventListener(event => {
-            
-        })
+            data = event.target.response;
+            var map = new ymaps.Map("map", {
+                center: [data.x, data.y],
+                zoom: 7
+            });
+        });
     </script>
 </body>
 </html>
