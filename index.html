@@ -29,6 +29,8 @@
         });
 
         xhr.addEventListener(event => {
+
+            console.log(event);
             data = event.target.response;
             var map = new ymaps.Map("map", {
                 center: [data.x, data.y],

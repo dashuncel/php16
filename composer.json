@@ -1,11 +1,14 @@
 {
-    "name": "netology/php22",
-    "description": "home works",
+    "name": "netology/php-16",
+    "description": "php16 geolocation",
     "authors": [
         {
             "name": "Byankina Darya",
             "email": "korovkinada@ya.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "yandex/geo": "^1.1"
+	"php": ">=5.3.0"
+    }
 }
