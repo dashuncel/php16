@@ -9,7 +9,7 @@
 </head>
 <body>
     <form action="" method="POST" enctype="multipart/form-data" class="mainForm">
-        <input type="text" name="address" required value="Москва ул.Мясницкая, 35">
+        <input type="text" name="address" required value="Москва ул.Лермонтова">
         <input type="submit" name="send" value="Найти ->">
     </form>
     <section class="hide">
@@ -21,17 +21,30 @@
     </section>
     <script>
         'use strict';
+        let map;
+        let geoObject;
         $('input[type=submit]').click(function(event) {
             event.preventDefault();
             $.post("map.php",
                 $('.mainForm').serialize(),
                 function(data, result){
+                console.log()
                     let coordinates = JSON.parse(data);
                     $('.coordlist').html('');
                     coordinates.forEach(function(item, i){
                         $('.coordlist').append(`<li><a href="#" data-latt="${item.latt}" data-long="${item.long}">${item.address} (широта: ${item.latt}, долгота ${item.long}</a></li>`);
                     });
                     $('section').show();
+                    map = new ymaps.Map("map", {
+                          center: [coordinates[0]['latt'], coordinates[0]['long']],
+                          zoom: 14 });
+                    geoObject = new ymaps.GeoObject({
+                        geometry: {
+                            type: "Point", // тип геометрии - точка
+                            coordinates: [coordinates[0]['latt'], coordinates[0]['long']] // координаты точки
+                        }
+                    });
+                    map.geoObjects.add(geoObject);
                 }
             );
         });
@@ -39,10 +52,16 @@
         $('.coordlist').click(function(event) {
             if (event.target.tagName != "A") { return; }
             event.preventDefault();
-            let map = new ymaps.Map("map", {
-                center: [$(event.target).attr('data-latt'), $(event.target).attr('data-long')],
-                zoom: 10
+            const latt = $(event.target).attr('data-latt');
+            const long = $(event.target).attr('data-long');
+            map.setCenter([latt, long], 14);
+            geoObject = new ymaps.GeoObject({
+                geometry: {
+                    type: "Point", // тип геометрии - точка
+                    coordinates: [latt, long] // координаты точки
+                }
             });
+            map.geoObjects.add(geoObject);
         });
 
 
