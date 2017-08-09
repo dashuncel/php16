@@ -28,10 +28,9 @@
             $.post("map.php",
                 $('.mainForm').serialize(),
                 function(res_data, result){
+                
                     // залипуха для нетологии - вырезаем ворнинг:
-                    console.log(res_data);
-                    res_data = res_data.replace(/<br.*br \?/>/g,'');
-                    console.log(res_data);
+                    res_data = res_data.substring(res_data.indexOf('['));
                     //---конец залипухи---
 
                     let coordinates = JSON.parse(res_data);
